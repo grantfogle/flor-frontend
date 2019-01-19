@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import BGImage from '../images/WelcomeBackground.jpg';
 
 class Welcome extends Component {
@@ -14,7 +15,7 @@ class Welcome extends Component {
                 <TextInput style={emailFill} placeholder="Password">
                 </TextInput>
                 <View style={buttonView}>
-                    <TouchableOpacity style={button}>
+                    <TouchableOpacity style={button} onPress={() => Actions.camera()}>
                         <Text style={buttonText}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={button}>
