@@ -23,7 +23,7 @@ class Library extends Component {
     renderUsersFlowers() {
         if (this.state.flowers) {
             return this.state.flowers.map(flower => {
-                return <ListItem name={flower.name} imageUrl={flower.image} family={flower.family} description={flower.description}></ListItem>
+                return <ListItem key={flower.id} name={flower.name} imageUrl={flower.image} family={flower.family} description={flower.description}></ListItem>
             })
         }
     }
