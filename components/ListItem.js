@@ -29,8 +29,8 @@ const styles = {
         paddingRight: 10
     },
     imageStyle: {
-        height: 20,
-        width: 20,
+        height: 40,
+        width: 40,
         backgroundColor: 'black',
     },
     title: {

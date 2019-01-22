@@ -13,9 +13,9 @@ class Library extends Component {
     }
 
     async componentDidMount() {
-        const proxy = 'https://cors-anywhere.herokuapp.com/';
-        const response = await fetch(proxy + 'https://flor-backend.herokuapp.com/')
+        const response = await fetch('https://flor-backend.herokuapp.com/')
         const json = await response.json();
+        console.log(json)
         this.setState({ flowers: json })
         console.log(this.state.flowers);
     }
