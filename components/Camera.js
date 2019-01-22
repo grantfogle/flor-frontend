@@ -14,6 +14,10 @@ class CameraComponent extends Component {
         this.setState({ hasCameraPermission: status === 'granted' });
     }
 
+    //need to figure out how to store a photo when taken and then send it off to the 
+    //my machine learning app
+
+
     render() {
         const { container, cameraStyle, cameraBottom, cameraTrigger, button, takePictureContainer, buttonContainer } = styles;
         const { hasCameraPermission } = this.state;
@@ -26,7 +30,9 @@ class CameraComponent extends Component {
                 <View style={container}>
                     {/* <View style={cameraStyle}> */}
                     <Camera style={cameraStyle} type={this.state.type}>
+                        <View style={}>
 
+                        </View>
                     </Camera>
                     {/* // </View> */}
                     <View style={cameraBottom}>
@@ -58,6 +64,16 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#fff',
     },
+    cameraTrigger: {
+        flex: 1,
+        backgroundColor: 'transparent',
+        flexDirection: 'row',
+    },
+    cameraButton: {
+        flex: 0.1,
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+    },
     cameraBottom: {
         height: 200,
         width: '100%',
@@ -74,10 +90,6 @@ const styles = StyleSheet.create({
         // flexDirection: 'row',
         // justifyContent: 'space-between',
     },
-    cameraButton: {
-        height: 50,
-        width: '100%',
-    }
 })
 
 export default CameraComponent;
