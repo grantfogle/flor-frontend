@@ -3,7 +3,7 @@ import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
 import Welcome from './components/Welcome';
 import Camera from './components/Camera';
 import Library from './components/Library';
-import Wildflower from './components/Wildflower'
+import Wildflower from './components/Wildflower';
 //import reactrouter flux library
 //import additional components
 

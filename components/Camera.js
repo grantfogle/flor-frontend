@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     camera: {
         // flex: 1,
-        height: 600,
+        height: 400,
         width: 300,
         backgroundColor: '#fff',
     },
