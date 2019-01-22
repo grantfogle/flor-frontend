@@ -7,9 +7,6 @@ import Camer from './components/Camera';
 export default class App extends React.Component {
   render() {
     return (
-      // <View style={styles.container}>
-      //   <Welcome />
-      // </View>
       <Router />
     );
   }
