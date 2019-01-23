@@ -16,7 +16,15 @@ class CameraComponent extends Component {
 
     //need to figure out how to store a photo when taken and then send it off to the 
     //my machine learning app
-
+    async snap() {
+        if (this.camera) {
+            let photo = await this.camera.takePictureAsync();
+            console.log('cats');
+            console.log(photo)
+            //send to machine learning app
+            //photo is an object that includes size and uri (location of image)
+        }
+    }
 
     render() {
         const { container, cameraStyle, cameraBottom, cameraTrigger, button, takePictureContainer, buttonContainer } = styles;
@@ -29,9 +37,30 @@ class CameraComponent extends Component {
             return (
                 <View style={container}>
                     {/* <View style={cameraStyle}> */}
-                    <Camera style={cameraStyle} type={this.state.type}>
-                        <View style={}>
-
+                    <Camera
+                        style={cameraStyle}
+                        type={this.state.type}
+                        ref={ref => { this.camera = ref; }}
+                    >
+                        <View style={cameraTrigger}>
+                            <TouchableOpacity
+                                style={{
+                                    flex: 0.1,
+                                    alignSelf: 'flex-end',
+                                    alignItems: 'center',
+                                }}
+                                onPress={() => {
+                                    this.setState({
+                                        type: this.state.type === Camera.Constants.Type.back
+                                            ? Camera.Constants.Type.front
+                                            : Camera.Constants.Type.back,
+                                    });
+                                }}>
+                                <Text
+                                    style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                                    {' '}Flip{' '}
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </Camera>
                     {/* // </View> */}
@@ -39,6 +68,9 @@ class CameraComponent extends Component {
                         {/* <View style={cameraTrigger}>
                             <TouchableOpacity style={button} />
                         </View> */}
+                        <View style={takePictureContainer}>
+                            <TouchableOpacity style={button} onPress={() => this.snap()} />
+                        </View>
                         <View style={buttonContainer}>
                             <Button title="Add from photos" color="white" onPress={() => Actions.library()} />
                             <Button title="View Library" color="white" onPress={() => Actions.library()} />
@@ -53,14 +85,13 @@ class CameraComponent extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        borderColor: '#5758BB',
-        borderWidth: 10,
+        // borderColor: '#5758BB',
         height: '100%',
         width: '100%',
     },
     cameraStyle: {
         flex: 1,
-        height: 400,
+        height: '80%',
         width: '100%',
         backgroundColor: '#fff',
     },
@@ -75,20 +106,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     cameraBottom: {
-        height: 200,
+        height: '20%',
         width: '100%',
         backgroundColor: '#5758BB',
+        justifyContent: 'space-between',
     },
     button: {
-        color: 'white',
+        backgroundColor: '#3498db',
         height: 50,
         width: 50,
         borderRadius: 50,
         marginTop: 10
     },
+    takePictureContainer: {
+        height: 50,
+        width: '100%',
+        alignItems: 'center',
+    },
     buttonContainer: {
-        // flexDirection: 'row',
-        // justifyContent: 'space-between',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
 })
 
