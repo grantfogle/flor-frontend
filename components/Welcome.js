@@ -9,11 +9,33 @@ class Welcome extends Component {
         this.state = {
             username: '',
             password: '',
+            alert: '',
         }
     }
-    async fetchUser(username, password) {
+    // async fetchUser(type) {
+    //     //on button click, trigger a sign up or submit
+    //     let obj = {
+    //         username: this.state.username,
+    //         password: this.state.password
+    //     }
 
-    }
+    //     if (type = "signup") {
+    //         fetch('heroku.com/signup', {
+    //             method: 'POST',
+    //             body: JSON.stringify(obj),
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Accept': 'application/json'
+    //             }
+    //         })
+    //             .then(response => {
+    //                 if (response === 'false') {
+    //                     this.setState({})
+    //                 }
+    //             });
+    //     }
+    //     //login
+    // }
 
     formUpdate(text, name) {
         this.setState({ [name]: text })
@@ -77,10 +99,10 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#9980FA',
-        width: 100,
+        width: 80,
         height: 40,
-        marginRight: 10,
-        marginLeft: 10,
+        marginRight: 5,
+        marginLeft: 5,
         borderRadius: 14,
         justifyContent: 'center'
     },

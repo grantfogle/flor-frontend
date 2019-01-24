@@ -29,12 +29,21 @@ class Library extends Component {
     }
 
     render() {
+        const { container } = styles;
         return (
-            <View>
+            <View style={container}>
                 {this.renderUsersFlowers()}
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        height: '100%',
+        width: '100%',
+        backgroundColor: '#706fd3',
+    }
+})
 
 export default Library;

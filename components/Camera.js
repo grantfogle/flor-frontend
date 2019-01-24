@@ -108,13 +108,15 @@ const styles = StyleSheet.create({
     cameraBottom: {
         height: '20%',
         width: '100%',
-        backgroundColor: '#5758BB',
+        backgroundColor: '#227093',
         justifyContent: 'space-between',
     },
     button: {
-        backgroundColor: '#3498db',
+        backgroundColor: '#ccae62',
         height: 50,
         width: 50,
+        borderWidth: 4,
+        borderColor: 'black',
         borderRadius: 50,
         marginTop: 10
     },
