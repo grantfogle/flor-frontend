@@ -18,7 +18,7 @@ class CameraComponent extends Component {
     //my machine learning app
     async snap() {
         if (this.camera) {
-            let photo = await this.camera.takePictureAsync();
+            let photo = await this.camera.takePictureAsync({ base64: true });
             console.log('cats');
             console.log(photo)
             //send to machine learning app

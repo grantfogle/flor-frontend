@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
         width: 140,
         borderRadius: 10,
         marginBottom: 20,
+        marginTop: -80,
     },
     header: {
         fontSize: 60,
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 40,
         backgroundColor: '#ecf0f1',
-        marginBottom: 10,
+        marginBottom: 20,
         borderRadius: 14,
         padding: 5,
         fontSize: 20
@@ -120,4 +121,5 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 })
+
 export default Welcome;
