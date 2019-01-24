@@ -4,16 +4,40 @@ import { Actions } from 'react-native-router-flux';
 import BGImage from '../images/WelcomeBackground.jpg';
 
 class Welcome extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+        }
+    }
+    async fetchUser(username, password) {
+
+    }
+
+    formUpdate(text, name) {
+        this.setState({ [name]: text })
+        console.log(this.state)
+    }
+
     render() {
-        const { backgroundImage, header, emailFill, buttonView, button, buttonText } = styles;
+        const { backgroundImage, header, formFill, buttonView, button, buttonText } = styles;
         return (
-            // <View style={}>
             <ImageBackground source={BGImage} style={backgroundImage}>
                 <Text style={header}>Flor</Text>
-                <TextInput style={emailFill} placeholder="Username/Email">
-                </TextInput>
-                <TextInput style={emailFill} placeholder="Password">
-                </TextInput>
+                <TextInput
+                    style={formFill}
+                    placeholder='Username/Email'
+                    autoCapitalize='none'
+                    onChangeText={(text) => this.formUpdate(text, 'username')}
+                />
+                <TextInput
+                    style={formFill}
+                    placeholder='Password'
+                    autoCapitalize='none'
+                    secureTextEntry={true}
+                    onChangeText={(text) => this.formUpdate(text, 'password')}
+                />
                 <View style={buttonView}>
                     <TouchableOpacity style={button} onPress={() => Actions.camera()}>
                         <Text style={buttonText}>Login</Text>
@@ -23,7 +47,6 @@ class Welcome extends Component {
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
-            // </View>
         )
     }
 }
@@ -40,11 +63,14 @@ const styles = StyleSheet.create({
         fontSize: 60,
         color: '#fff',
     },
-    emailFill: {
+    formFill: {
         width: 200,
         height: 40,
         backgroundColor: '#ecf0f1',
         marginBottom: 10,
+        borderRadius: 14,
+        padding: 5,
+        fontSize: 20
     },
     buttonView: {
         flexDirection: 'row',
@@ -55,10 +81,13 @@ const styles = StyleSheet.create({
         height: 40,
         marginRight: 10,
         marginLeft: 10,
+        borderRadius: 14,
+        justifyContent: 'center'
     },
     buttonText: {
         color: '#fff',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: 20,
     }
 })
 export default Welcome;
