@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import BGImage from '../images/WelcomeBackground.jpg';
+import BGImage from '../images/welcomeBackground.jpg';
+import logo from '../images/florLogo.png';
 
 class Welcome extends Component {
     constructor(props) {
@@ -43,10 +44,11 @@ class Welcome extends Component {
     }
 
     render() {
-        const { backgroundImage, header, formFill, buttonView, button, buttonText } = styles;
+        const { backgroundImage, logoStyle, header, formFill, buttonView, button, buttonText } = styles;
         return (
             <ImageBackground source={BGImage} style={backgroundImage}>
-                <Text style={header}>Flor</Text>
+                {/* <Text style={header}>Flor</Text> */}
+                <Image style={logoStyle} source={logo} />
                 <TextInput
                     style={formFill}
                     placeholder='Username/Email'
@@ -80,6 +82,12 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    logoStyle: {
+        height: 200,
+        width: 140,
+        borderRadius: 10,
+        marginBottom: 20,
     },
     header: {
         fontSize: 60,
