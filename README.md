@@ -12,3 +12,5 @@ Flor is a machine learning app that utilizes image recognition to identify parti
 * Knex
 * PostgreSQL
 * Node
+
+## Deployed Links
