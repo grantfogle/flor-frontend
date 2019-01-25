@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet, ImageBackground, TouchableOpacity, I
 import { Actions } from 'react-native-router-flux';
 import BGImage from '../images/welcomeBackground.jpg';
 import logo from '../images/florLogo.png';
+import { Icon } from 'react-native-elements';
 
 class Welcome extends Component {
     constructor(props) {
@@ -44,24 +45,29 @@ class Welcome extends Component {
     }
 
     render() {
-        const { backgroundImage, logoStyle, header, formFill, buttonView, button, buttonText } = styles;
+        const { backgroundImage, logoStyle, formRow, formFill, buttonView, button, buttonText } = styles;
         return (
             <ImageBackground source={BGImage} style={backgroundImage}>
-                {/* <Text style={header}>Flor</Text> */}
                 <Image style={logoStyle} source={logo} />
-                <TextInput
-                    style={formFill}
-                    placeholder='Username/Email'
-                    autoCapitalize='none'
-                    onChangeText={(text) => this.formUpdate(text, 'username')}
-                />
-                <TextInput
-                    style={formFill}
-                    placeholder='Password'
-                    autoCapitalize='none'
-                    secureTextEntry={true}
-                    onChangeText={(text) => this.formUpdate(text, 'password')}
-                />
+                <View style={formRow}>
+                    <TextInput
+                        style={formFill}
+                        placeholder='Username/Email'
+                        autoCapitalize='none'
+                        onChangeText={(text) => this.formUpdate(text, 'username')}
+                    ></TextInput>
+                    <Icon name='user' type='font-awesome' color='#d3d3d3' />
+                </View>
+                <View style={formRow}>
+                    <TextInput
+                        style={formFill}
+                        placeholder='Password'
+                        autoCapitalize='none'
+                        secureTextEntry={true}
+                        onChangeText={(text) => this.formUpdate(text, 'password')}
+                    />
+                    <Icon name='unlock' type='font-awesome' color='#d3d3d3' />
+                </View>
                 <View style={buttonView}>
                     <TouchableOpacity style={button} onPress={() => Actions.camera()}>
                         <Text style={buttonText}>Login</Text>
@@ -94,20 +100,28 @@ const styles = StyleSheet.create({
         fontSize: 60,
         color: '#fff',
     },
-    formFill: {
+    formRow: {
         width: 200,
         height: 40,
         backgroundColor: '#ecf0f1',
         marginBottom: 20,
         borderRadius: 14,
-        padding: 5,
-        fontSize: 20
+        padding: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    formFill: {
+        width: 160,
+        height: 40,
+        fontSize: 20,
+        backgroundColor: 'transparent'
     },
     buttonView: {
         flexDirection: 'row',
     },
     button: {
-        backgroundColor: '#9980FA',
+        backgroundColor: '#7124E2',
         width: 80,
         height: 40,
         marginRight: 5,

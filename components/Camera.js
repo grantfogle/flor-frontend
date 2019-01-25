@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#ccae62',
-        height: 50,
-        width: 50,
+        height: 80,
+        width: 80,
         borderWidth: 4,
         borderColor: 'black',
         borderRadius: 50,
@@ -128,6 +128,9 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginBottom: 10,
+        marginLeft: 5,
+        marginRight: 5,
     },
 })
 
