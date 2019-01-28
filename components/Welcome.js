@@ -14,14 +14,15 @@ class Welcome extends Component {
             alert: '',
         }
     }
-    async fetchUser(type) {
+    async fetchUser(command) {
         let user = {
             username: this.state.username,
             password: this.state.password
         }
-
-        if (type === 'signup') {
+        console.log(command)
+        if (command === 'signup') {
             //send  apost request
+            // const proxy = 'https://cors-anywhere.herokuapp.com/';
             fetch('http://localhost:3001/signup', {
                 method: 'POST',
                 body: JSON.stringify(user),
@@ -32,42 +33,34 @@ class Welcome extends Component {
             })
                 .then(response => response.json)
                 .then(data => {
+                    console.log(data)
                     if (data) {
                         return Actions.camera()
                     }
                     this.setState({ alert: 'signup failed, user exists' });
                 })
         }
+        fetch('http://localhost:3001/login', {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => response.json)
+            .then(data => {
+                console.log(data.message)
+                if (data) {
+                    return Actions.camera();
+                }
+                this.setState({ alert: 'Username/password was incorrect' })
+            })
 
     }
-    // async fetchUser(type) {
-    //     //on button click, trigger a sign up or submit
-    //     let obj = {
-    //         username: this.state.username,
-    //         password: this.state.password
-    //     }
-
-    //     if (type = "signup") {
-    //         fetch('heroku.com/signup', {
-    //             method: 'POST',
-    //             body: JSON.stringify(obj),
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Accept': 'application/json'
-    //             }
-    //         })
-    //             .then(response => {
-    //                 if (response === 'false') {
-    //                     this.setState({})
-    //                 }
-    //             });
-    //     }
-    //     //login
-    // }
 
     formUpdate(text, name) {
         this.setState({ [name]: text })
-        console.log(this.state)
     }
 
     render() {
@@ -95,10 +88,10 @@ class Welcome extends Component {
                     <Icon name='unlock' type='font-awesome' color='#d3d3d3' />
                 </View>
                 <View style={buttonView}>
-                    <TouchableOpacity style={button} onPress={() => Actions.camera()}>
+                    <TouchableOpacity style={button} onPress={() => this.fetchUser('login')}>
                         <Text style={buttonText}>Login</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={button}>
+                    <TouchableOpacity style={button} onPress={() => this.fetchUser('signup')}>
                         <Text style={buttonText}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
