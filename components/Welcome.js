@@ -15,13 +15,21 @@ class Welcome extends Component {
         }
     }
     async fetchUser(type) {
-        let obj = {
+        let user = {
             username: this.state.username,
             password: this.state.password
         }
 
         if (type === 'signup') {
-            fetch('http://localhost:3001/signup')
+            //send  apost request
+            fetch('http://localhost:3001/signup', {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
                 .then(response => response.json)
                 .then(data => {
                     if (data) {
@@ -30,6 +38,7 @@ class Welcome extends Component {
                     this.setState({ alert: 'signup failed, user exists' });
                 })
         }
+
     }
     // async fetchUser(type) {
     //     //on button click, trigger a sign up or submit
