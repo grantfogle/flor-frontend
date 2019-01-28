@@ -14,6 +14,23 @@ class Welcome extends Component {
             alert: '',
         }
     }
+    async fetchUser(type) {
+        let obj = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
+        if (type === 'signup') {
+            fetch('http://localhost:3001/signup')
+                .then(response => response.json)
+                .then(data => {
+                    if (data) {
+                        return Actions.camera()
+                    }
+                    this.setState({ alert: 'signup failed, user exists' });
+                })
+        }
+    }
     // async fetchUser(type) {
     //     //on button click, trigger a sign up or submit
     //     let obj = {
