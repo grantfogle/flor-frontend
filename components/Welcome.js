@@ -23,7 +23,7 @@ class Welcome extends Component {
         if (command === 'signup') {
             //send  apost request
             // const proxy = 'https://cors-anywhere.herokuapp.com/';
-            fetch('http://localhost:3001/signup', {
+            fetch('https://flor-backend.herokuapp.com/signup', {
                 method: 'POST',
                 body: JSON.stringify(user),
                 headers: {
@@ -40,7 +40,7 @@ class Welcome extends Component {
                     this.setState({ alert: 'signup failed, user exists' });
                 })
         }
-        fetch('http://localhost:3001/login', {
+        fetch('https://flor-backend.herokuapp.com/login', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
@@ -51,7 +51,7 @@ class Welcome extends Component {
             .then(response => response.json)
             .then(data => {
                 console.log(data.message)
-                if (data) {
+                if (data.message) {
                     return Actions.camera();
                 }
                 this.setState({ alert: 'Username/password was incorrect' })

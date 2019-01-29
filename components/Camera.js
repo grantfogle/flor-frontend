@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 //import camera and permissions from expo
 import { Camera, Permissions } from 'expo';
+const config = require('../config');
 
 class CameraComponent extends Component {
     state = {
@@ -14,13 +15,43 @@ class CameraComponent extends Component {
         this.setState({ hasCameraPermission: status === 'granted' });
     }
 
+    async identifyWildflower(photo) {
+        console.log('dogs');
+        let obj = {
+            "task_id": config.id,
+            "records": [{ "_base64": photo }]
+        }
+
+        fetch('https://api.ximilar.com/recognition/v2/classify', {
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'authorization': `Token ${config.token}`
+            }
+        })
+            .then(response => {
+                // console.log('rhinos');
+                return response.json();
+                // console.log(parsedResponse);
+                // console.log(JSON.parse(response));
+            })
+            .then(response => {
+                console.log(response.records[0].best_label.name)
+            });
+    }
     //need to figure out how to store a photo when taken and then send it off to the 
     //my machine learning app
     async snap() {
         if (this.camera) {
-            let photo = await this.camera.takePictureAsync({ base64: true });
-            console.log('cats');
-            console.log(photo)
+            await this.camera.takePictureAsync({ quality: .1, base64: true })
+                .then(photo => {
+                    console.log('cats')
+                    this.identifyWildflower(photo.base64);
+                })
+            // console.log(photo);
+
             //send to machine learning app
             //photo is an object that includes size and uri (location of image)
         }
