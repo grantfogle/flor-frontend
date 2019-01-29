@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ListItem from './ListItem';
 
 class Library extends Component {
-    //fetch request
     constructor(props) {
         super(props);
         this.state = {
@@ -31,9 +30,9 @@ class Library extends Component {
     render() {
         const { container } = styles;
         return (
-            <View style={container}>
+            <ScrollView style={container}>
                 {this.renderUsersFlowers()}
-            </View>
+            </ScrollView>
         );
     }
 }

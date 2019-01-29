@@ -12,7 +12,12 @@ const RouterComponent = () => {
         <Router>
             <Stack key="root">
                 <Scene key="login" component={Welcome} title="Login" initial />
-                <Scene key="camera" component={Camera} title="Camera" />
+                <Scene
+                    onRight={() => Actions.library()}
+                    rightTitle="View Library"
+                    key="camera"
+                    component={Camera}
+                    title="Camera" />
                 <Scene key="library" component={Library} title="Library" />
                 <Scene key="wildflower" component={Wildflower} title="Wildflower" />
             </Stack>
