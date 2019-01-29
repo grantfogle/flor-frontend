@@ -11,7 +11,8 @@ class Welcome extends Component {
         this.state = {
             username: '',
             password: '',
-            alert: '',
+            alert: false,
+            alertMessage: '',
         }
     }
     async fetchUser(command) {
@@ -31,32 +32,46 @@ class Welcome extends Component {
                     'Accept': 'application/json'
                 }
             })
-                .then(response => response.json)
+                .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    if (data) {
+                    if (data.message !== "User already exists") {
                         return Actions.camera()
                     }
-                    this.setState({ alert: 'signup failed, user exists' });
+                    return (
+                        this.setState({ alertMessage: 'User already exists' }),
+                        this.showAlert()
+                    )
+                })
+        } else {
+            fetch('https://flor-backend.herokuapp.com/login', {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Authenticated') {
+                        return Actions.camera();
+                    }
+                    return (
+                        this.setState({ alertMessage: 'Username/password was incorrect' }),
+                        this.showAlert()
+                    )
                 })
         }
-        fetch('https://flor-backend.herokuapp.com/login', {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-            .then(response => response.json)
-            .then(data => {
-                console.log(data.message)
-                if (data.message) {
-                    return Actions.camera();
-                }
-                this.setState({ alert: 'Username/password was incorrect' })
-            })
 
+    }
+
+    showAlert() {
+        this.setState({ alert: true });
+        setTimeout(function () {
+            this.setState({ alert: false });
+        }
+            .bind(this), 3500);
     }
 
     formUpdate(text, name) {
@@ -64,7 +79,9 @@ class Welcome extends Component {
     }
 
     render() {
-        const { backgroundImage, logoStyle, formRow, formFill, buttonView, button, buttonText } = styles;
+        const { backgroundImage, logoStyle, formRow, formFill,
+            buttonView, button, buttonText, alertContainer,
+            alertContainerTrue, alertText } = styles;
         return (
             <ImageBackground source={BGImage} style={backgroundImage}>
                 <Image style={logoStyle} source={logo} />
@@ -95,6 +112,12 @@ class Welcome extends Component {
                         <Text style={buttonText}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={this.state.alert ? alertContainerTrue : alertContainer}>
+                    <Text style={alertText}>
+                        {this.state.alert ? this.state.alertMessage : ''}
+                    </Text>
+                </View>
+
             </ImageBackground>
         )
     }
@@ -152,6 +175,22 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         fontSize: 20,
+    },
+    alertContainer: {
+        width: '100%',
+        height: 40,
+        backgroundColor: 'transparent',
+    },
+    alertContainerTrue: {
+        width: '100%',
+        height: 40,
+        backgroundColor: '#ecf0f1',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    alertText: {
+        fontSize: 20,
+        color: '#c0392b',
     }
 })
 
