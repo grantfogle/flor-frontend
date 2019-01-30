@@ -9,7 +9,8 @@ const ListItem = ({ name, imageUrl, family, description }) => {
         <View style={container}>
             <Image source={{ uri: imageUrl }} style={imageStyle} />
             <Text style={title}>{name}</Text>
-            <TouchableOpacity style={button} onPress={() => Actions.wildflower({ title: name, flower: name, imageUrl, family, description })}>
+            <TouchableOpacity style={button}
+                onPress={() => Actions.wildflower({ title: name, flower: name, imageUrl, family, description })}>
                 <Icon name='chevron-right' type='font-awesome' color='black' size={40} />
             </TouchableOpacity>
         </View>

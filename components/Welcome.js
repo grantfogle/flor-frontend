@@ -20,9 +20,7 @@ class Welcome extends Component {
             username: this.state.username,
             password: this.state.password
         }
-        console.log(command)
         if (command === 'signup') {
-            //send  apost request
             // const proxy = 'https://cors-anywhere.herokuapp.com/';
             fetch('https://flor-backend.herokuapp.com/signup', {
                 method: 'POST',
@@ -34,7 +32,6 @@ class Welcome extends Component {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if (data.message !== "User already exists") {
                         return Actions.camera()
                     }
