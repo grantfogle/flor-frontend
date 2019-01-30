@@ -14,7 +14,7 @@ const RouterComponent = () => {
                 <Scene key="login" component={Welcome} title="Login" initial />
                 <Scene
                     onRight={() => Actions.library()}
-                    rightTitle="View Library"
+                    rightTitle="Library"
                     key="camera"
                     component={Camera}
                     title="Camera" />

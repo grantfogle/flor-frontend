@@ -13,8 +13,6 @@ class CameraComponent extends Component {
         hasCameraPermission: null,
         type: Camera.Constants.Type.back,
         flowers: '',
-        visible: false,
-        selectedFlower: '',
     }
 
     async componentDidMount() {
@@ -28,11 +26,7 @@ class CameraComponent extends Component {
 
     mapthroughWildflowers(result) {
         const filteredFlower = this.state.flowers.filter(flower => flower.name === result)[0];
-        // this.setState({ selectedFlower: filteredFlower })
-        console.log(filteredFlower);
-        return Actions.wildflower({ flower: filteredFlower.name, imageUrl: filteredFlower.image, family: filteredFlower.family, description: filteredFlower.description });
-        // this.setState({ visible: true })
-        // console.log(this.state.selectedFlower)
+        return Actions.wildflower({ title: filteredFlower.name, flower: filteredFlower.name, imageUrl: filteredFlower.image, family: filteredFlower.family, description: filteredFlower.description });
     }
 
     async identifyWildflower(photo) {
@@ -54,7 +48,6 @@ class CameraComponent extends Component {
                 return response.json();
             })
             .then(response => {
-                console.log(response.records[0].best_label.name)
                 this.mapthroughWildflowers(response.records[0].best_label.name)
             });
     }

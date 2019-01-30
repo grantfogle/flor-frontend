@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         width: 140,
         borderRadius: 10,
         marginBottom: 20,
-        marginTop: -80,
+        // marginTop: 0,
     },
     header: {
         fontSize: 60,
@@ -160,16 +160,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
     buttonView: {
-        flexDirection: 'row',
+        // flexDirection: 'row',
     },
     button: {
         backgroundColor: '#7124E2',
-        width: 80,
+        width: 200,
         height: 40,
         marginRight: 5,
         marginLeft: 5,
         borderRadius: 14,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 20,
     },
     buttonText: {
         color: '#fff',
