@@ -29,8 +29,9 @@ class CameraComponent extends Component {
     mapthroughWildflowers(result) {
         const filteredFlower = this.state.flowers.filter(flower => flower.name === result)[0];
         this.setState({ selectedFlower: filteredFlower })
-        this.setState({ visible: true })
-        console.log(this.state.selectedFlower)
+        Actions.wildflower({ flower: selectedFlower.name, imageUrl: selectedFlower.image, family: selectedFlower.family, description: selectedFlower.description })
+        // this.setState({ visible: true })
+        // console.log(this.state.selectedFlower)
     }
 
     async identifyWildflower(photo) {
@@ -81,29 +82,29 @@ class CameraComponent extends Component {
         } else {
             return (
                 <View style={container}>
-                    <Image source={Columbine} style={imageStyle} />
-                    {/* <Camera
+                    {/* <Image source={Columbine} style={imageStyle} /> */}
+                    <Camera
                         style={cameraStyle}
                         type={this.state.type}
                         ref={ref => { this.camera = ref; }}
                     >
-                        <ModalAlert
+                        {/* <ModalAlert
                             setModalVisible={this.setModalVisible}
                             visible={this.state.visible}
                             name={this.state.selectedFlower.name}
                             image={this.state.selectedFlower.image}
                             description={this.state.selectedFlower.description}
-                            family={this.state.selectedFlower.family} />
-                    </Camera> */}
+                            family={this.state.selectedFlower.family} /> */}
+                    </Camera>
                     <View style={cameraBottom}>
                         <View style={takePictureContainer}>
                             <TouchableOpacity style={button} onPress={() => {
-                                // this.snap()
-                                let columbine = this.state.flowers.filter(flower => flower.name === 'Columbine')[0];
-                                setTimeout(function () {
-                                    Actions.wildflower({ flower: columbine.name, imageUrl: columbine.image, family: columbine.family, description: columbine.description });
-                                }
-                                    .bind(this), 2000);
+                                this.snap()
+                                // let columbine = this.state.flowers.filter(flower => flower.name === 'Columbine')[0];
+                                // setTimeout(function () {
+                                //     Actions.wildflower({ flower: columbine.name, imageUrl: columbine.image, family: columbine.family, description: columbine.description });
+                                // }
+                                //     .bind(this), 2000);
                             }} >
                                 <Icon name='camera' type='font-awesome' color='#fff' size={40} />
                             </TouchableOpacity>
