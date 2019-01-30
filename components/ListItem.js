@@ -4,7 +4,6 @@ import { Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
 const ListItem = ({ name, imageUrl, family, description }) => {
-    //might add an image small
     const { container, title, imageStyle, button } = styles;
     return (
         <View style={container}>
@@ -41,7 +40,6 @@ const styles = {
     button: {
         height: 40,
         width: 40,
-        // borderRadius: 50,
     }
 }
 

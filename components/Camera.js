@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-//import camera and permissions from expo
 import { Camera, Permissions } from 'expo';
-import Columbine from '../images/columbine_flower.jpg'
-import ModalAlert from './ModalAlert';
 import { Icon } from 'react-native-elements';
 const config = require('../config');
 
@@ -21,7 +18,6 @@ class CameraComponent extends Component {
         const response = await fetch('https://flor-backend.herokuapp.com/')
         const json = await response.json();
         this.setState({ flowers: json })
-        console.log(this.state.flowers)
     }
 
     mapthroughWildflowers(result) {
@@ -67,7 +63,7 @@ class CameraComponent extends Component {
     }
 
     render() {
-        const { container, imageStyle, cameraStyle, cameraBottom, button, takePictureContainer } = styles;
+        const { container, cameraStyle, cameraBottom, button, takePictureContainer } = styles;
         const { hasCameraPermission } = this.state;
         if (hasCameraPermission === null) {
             return <View />
@@ -100,15 +96,8 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
     },
-    imageStyle: {
-        flex: 1,
-        height: '80%',
-        width: '100%',
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     cameraStyle: {
+        //do i need flex?
         flex: 1,
         height: '80%',
         width: '100%',
@@ -117,11 +106,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     cameraTrigger: {
+        //do i need this
         flex: 1,
         backgroundColor: 'transparent',
         flexDirection: 'row',
     },
     cameraButton: {
+        //what is this??
         flex: 0.1,
         alignSelf: 'flex-end',
         alignItems: 'center',
