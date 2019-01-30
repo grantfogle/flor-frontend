@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
 const ListItem = ({ name, imageUrl, family, description }) => {
@@ -10,7 +11,9 @@ const ListItem = ({ name, imageUrl, family, description }) => {
             <Image source={{ uri: imageUrl }} style={imageStyle} />
             <Text style={title}>{name}</Text>
             {/* Arrow tag */}
-            <TouchableOpacity style={button} onPress={() => Actions.wildflower({ flower: name, imageUrl, family, description })}></TouchableOpacity>
+            <TouchableOpacity style={button} onPress={() => Actions.wildflower({ flower: name, imageUrl, family, description })}>
+                <Icon name='chevron-right' type='font-awesome' color='black' size={40} />
+            </TouchableOpacity>
         </View>
     )
 }
@@ -37,10 +40,9 @@ const styles = {
         fontSize: 30,
     },
     button: {
-        backgroundColor: 'black',
         height: 40,
         width: 40,
-        borderRadius: 50,
+        // borderRadius: 50,
     }
 }
 

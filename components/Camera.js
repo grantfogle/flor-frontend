@@ -3,16 +3,33 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 //import camera and permissions from expo
 import { Camera, Permissions } from 'expo';
+import ModalAlert from './ModalAlert';
+import { Icon } from 'react-native-elements';
 const config = require('../config');
 
 class CameraComponent extends Component {
     state = {
         hasCameraPermission: null,
         type: Camera.Constants.Type.back,
+        flowers: '',
+        visible: false,
+        selectedFlower: '',
     }
+
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
+        const response = await fetch('https://flor-backend.herokuapp.com/')
+        const json = await response.json();
+        this.setState({ flowers: json })
+        console.log(this.state.flowers)
+    }
+
+    mapthroughWildflowers(result) {
+        const filteredFlower = this.state.flowers.filter(flower => flower.name === result)[0];
+        this.setState({ selectedFlower: filteredFlower })
+        this.setState({ visible: true })
+        console.log(this.state.selectedFlower)
     }
 
     async identifyWildflower(photo) {
@@ -35,16 +52,22 @@ class CameraComponent extends Component {
             })
             .then(response => {
                 console.log(response.records[0].best_label.name)
+                this.mapthroughWildflowers(response.records[0].best_label.name)
             });
     }
+
     async snap() {
         if (this.camera) {
             await this.camera.takePictureAsync({ quality: .1, base64: true })
                 .then(photo => {
-                    console.log('cats')
                     this.identifyWildflower(photo.base64);
                 })
         }
+    }
+
+    async setModalVisible(status) {
+        let newStatus = status;
+        this.setState({ visible: newStatus })
     }
 
     render() {
@@ -62,10 +85,19 @@ class CameraComponent extends Component {
                         type={this.state.type}
                         ref={ref => { this.camera = ref; }}
                     >
+                        <ModalAlert
+                            setModalVisible={this.setModalVisible}
+                            visible={this.state.visible}
+                            name={this.state.selectedFlower.name}
+                            image={this.state.selectedFlower.image}
+                            description={this.state.selectedFlower.description}
+                            family={this.state.selectedFlower.family} />
                     </Camera>
                     <View style={cameraBottom}>
                         <View style={takePictureContainer}>
-                            <TouchableOpacity style={button} onPress={() => this.snap()} />
+                            <TouchableOpacity style={button} onPress={() => this.snap()} >
+                                <Icon name='camera' type='font-awesome' color='#fff' size={40} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -85,6 +117,8 @@ const styles = StyleSheet.create({
         height: '80%',
         width: '100%',
         backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     cameraTrigger: {
         flex: 1,
@@ -99,8 +133,10 @@ const styles = StyleSheet.create({
     cameraBottom: {
         height: '20%',
         width: '100%',
-        backgroundColor: '#2980b9',
+        backgroundColor: '#9b59b6',
         justifyContent: 'center',
+        borderTopWidth: 4,
+        borderTopColor: 'black',
     },
     button: {
         backgroundColor: '#34495e',
@@ -109,6 +145,8 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         borderColor: 'black',
         borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     takePictureContainer: {
         height: '100%',
