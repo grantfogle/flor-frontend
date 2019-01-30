@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
         height: '20%',
         width: '100%',
         backgroundColor: '#9b59b6',
+        // backgroundColor: '#7124E2',
         justifyContent: 'center',
         borderTopWidth: 4,
         borderTopColor: 'black',
