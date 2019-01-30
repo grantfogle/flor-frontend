@@ -6,9 +6,7 @@ const Wildflower = ({ flower, family, imageUrl, description }) => {
 
     return (
         <View style={container}>
-            {/* <View style=> */}
             <Image source={{ uri: imageUrl }} style={imageStyle} />
-            {/* </View> */}
             <View style={info}>
                 <Text style={header}>{flower}</Text>
                 <Text style={familyStyle}>{family}</Text>

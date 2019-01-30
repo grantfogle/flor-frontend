@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 //import camera and permissions from expo
 import { Camera, Permissions } from 'expo';
+import Columbine from '../images/columbine_flower.jpg'
 import ModalAlert from './ModalAlert';
 import { Icon } from 'react-native-elements';
 const config = require('../config');
@@ -71,7 +72,7 @@ class CameraComponent extends Component {
     }
 
     render() {
-        const { container, cameraStyle, cameraBottom, button, takePictureContainer } = styles;
+        const { container, imageStyle, cameraStyle, cameraBottom, button, takePictureContainer } = styles;
         const { hasCameraPermission } = this.state;
         if (hasCameraPermission === null) {
             return <View />
@@ -80,7 +81,8 @@ class CameraComponent extends Component {
         } else {
             return (
                 <View style={container}>
-                    <Camera
+                    <Image source={Columbine} style={imageStyle} />
+                    {/* <Camera
                         style={cameraStyle}
                         type={this.state.type}
                         ref={ref => { this.camera = ref; }}
@@ -92,10 +94,17 @@ class CameraComponent extends Component {
                             image={this.state.selectedFlower.image}
                             description={this.state.selectedFlower.description}
                             family={this.state.selectedFlower.family} />
-                    </Camera>
+                    </Camera> */}
                     <View style={cameraBottom}>
                         <View style={takePictureContainer}>
-                            <TouchableOpacity style={button} onPress={() => this.snap()} >
+                            <TouchableOpacity style={button} onPress={() => {
+                                // this.snap()
+                                let columbine = this.state.flowers.filter(flower => flower.name === 'Columbine')[0];
+                                setTimeout(function () {
+                                    Actions.wildflower({ flower: columbine.name, imageUrl: columbine.image, family: columbine.family, description: columbine.description });
+                                }
+                                    .bind(this), 2000);
+                            }} >
                                 <Icon name='camera' type='font-awesome' color='#fff' size={40} />
                             </TouchableOpacity>
                         </View>
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
     },
-    cameraStyle: {
+    imageStyle: {
         flex: 1,
         height: '80%',
         width: '100%',
@@ -120,6 +129,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    // cameraStyle: {
+    //     flex: 1,
+    //     height: '80%',
+    //     width: '100%',
+    //     backgroundColor: '#fff',
+    //     justifyContent: 'center',
+    //     alignItems: 'center'
+    // },
     cameraTrigger: {
         flex: 1,
         backgroundColor: 'transparent',
