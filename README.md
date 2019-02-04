@@ -7,12 +7,14 @@ Flor is a machine learning app that utilizes image recognition to identify wildf
 ## Technology
 * React Native
 * Expo
-* Tensor Flow
-* Python
+* TensorFlow
+* Vize.ai
 * Knex
-* PostgreSQL
 * Node
+* Express
+* PostgreSQL
+* Heroku
 
 ## Deployed Links
-* Project is currently not deployed
-* [Demo Video](https://www.youtube.com/watch?v=l7ysO3HF318)
+[Demo Video](https://www.youtube.com/watch?v=l7ysO3HF318)
+
