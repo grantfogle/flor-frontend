@@ -1,12 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import { Provider } from 'react-redux';
+import { loadFlowers } from './actions/index';
 import Router from './Router';
+import store from './store';
 
-export default class App extends React.Component {
+store.dispatch(loadFlowers());
+
+
+class App extends Component {
   render() {
     return (
       //Add provider tag - context api
-      <Router />
+      <Provider store={store}>
+        <Router />
+      </Provider>
     );
   }
 }
@@ -16,3 +24,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default App;
