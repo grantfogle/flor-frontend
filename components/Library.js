@@ -1,28 +1,20 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import ListItem from './ListItem';
 
 class Library extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            flowers: '',
         }
-    }
-
-    async componentDidMount() {
-        const response = await fetch('https://flor-backend.herokuapp.com/')
-        const json = await response.json();
-        this.setState({ flowers: json })
     }
 
     renderUsersFlowers() {
-        if (this.state.flowers) {
-            return this.state.flowers.map(flower => {
-                return <ListItem key={flower.id} name={flower.name} imageUrl={flower.image} family={flower.family} description={flower.description}></ListItem>
-            })
-        }
+        return this.props.flowers.map(flower => {
+            return <ListItem key={flower.id} name={flower.name} imageUrl={flower.image} family={flower.family} description={flower.description}></ListItem>
+        })
     }
 
     render() {
@@ -43,4 +35,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Library;
+function mapStateToProps(state) {
+    return {
+        flowers: state.flowers
+    }
+}
+
+export default connect(mapStateToProps)(Library);

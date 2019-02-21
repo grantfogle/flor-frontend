@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
         width: 140,
         borderRadius: 10,
         marginBottom: 20,
-        // marginTop: 0,
     },
     header: {
         fontSize: 60,
@@ -154,9 +153,6 @@ const styles = StyleSheet.create({
         height: 40,
         fontSize: 20,
         backgroundColor: 'transparent'
-    },
-    buttonView: {
-        // flexDirection: 'row',
     },
     button: {
         backgroundColor: '#7124E2',

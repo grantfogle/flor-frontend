@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Camera, Permissions } from 'expo';
@@ -21,7 +21,6 @@ class CameraComponent extends Component {
     }
 
     mapthroughWildflowers(result) {
-        console.log(this.props.flowers)
         const filteredFlower = this.props.flowers.filter(flower => flower.name === result)[0];
         return Actions.wildflower({ title: filteredFlower.name, flower: filteredFlower.name, imageUrl: filteredFlower.image, family: filteredFlower.family, description: filteredFlower.description });
     }
@@ -98,7 +97,6 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     cameraStyle: {
-        //do i need flex?
         flex: 1,
         height: '80%',
         width: '100%',
@@ -107,13 +105,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     cameraTrigger: {
-        //do i need this
         flex: 1,
         backgroundColor: 'transparent',
         flexDirection: 'row',
     },
     cameraButton: {
-        //what is this??
         flex: 0.1,
         alignSelf: 'flex-end',
         alignItems: 'center',
@@ -122,7 +118,6 @@ const styles = StyleSheet.create({
         height: '20%',
         width: '100%',
         backgroundColor: '#9b59b6',
-        // backgroundColor: '#7124E2',
         justifyContent: 'center',
         borderTopWidth: 4,
         borderTopColor: 'black',
