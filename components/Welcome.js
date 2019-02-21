@@ -21,7 +21,6 @@ class Welcome extends Component {
             password: this.state.password
         }
         if (command === 'signup') {
-            // const proxy = 'https://cors-anywhere.herokuapp.com/';
             fetch('https://flor-backend.herokuapp.com/signup', {
                 method: 'POST',
                 body: JSON.stringify(user),

@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { Camera, Permissions } from 'expo';
 import { Icon } from 'react-native-elements';
 const config = require('../config');
 
 class CameraComponent extends Component {
-    state = {
-        hasCameraPermission: null,
-        type: Camera.Constants.Type.back,
-        flowers: '',
+    constructor(props) {
+        super(props)
+        this.state = {
+            hasCameraPermission: null,
+            type: Camera.Constants.Type.back,
+        }
     }
 
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
-        const response = await fetch('https://flor-backend.herokuapp.com/')
-        const json = await response.json();
-        this.setState({ flowers: json })
     }
 
     mapthroughWildflowers(result) {
-        const filteredFlower = this.state.flowers.filter(flower => flower.name === result)[0];
+        console.log(this.props.flowers)
+        const filteredFlower = this.props.flowers.filter(flower => flower.name === result)[0];
         return Actions.wildflower({ title: filteredFlower.name, flower: filteredFlower.name, imageUrl: filteredFlower.image, family: filteredFlower.family, description: filteredFlower.description });
     }
 
@@ -151,4 +152,10 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CameraComponent;
+function mapStateToProps(state) {
+    return {
+        flowers: state.flowers
+    }
+}
+
+export default connect(mapStateToProps)(CameraComponent);
