@@ -11,7 +11,6 @@ store.dispatch(loadFlowers());
 class App extends Component {
   render() {
     return (
-      //Add provider tag - context api
       <Provider store={store}>
         <Router />
       </Provider>
